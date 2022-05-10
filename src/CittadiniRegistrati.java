@@ -26,16 +26,6 @@ public class CittadiniRegistrati extends CittadiniVaccinati {
 
     @Override
     public String toString() {
-        return "Cittadino Registrato: " +
-                "nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", nomeCV='" + nomeCV + '\'' +
-                ", cf='" + cf + '\'' +
-                ", dataVaccinazione=" + dataVaccinazione +
-                ", nomeVaccino='" + nomeVaccino + '\'' +
-                ", idUnivoco=" + idUnivoco +
-                "email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'';
+        return "Cittadino Registrato -> nome: "+nome+", cognome: "+cognome+", nomeCV: "+nomeCV+", cf: "+cf+", dataVaccinazione: "+dataVaccinazione+", nomeVaccino: "+nomeVaccino+", idUnivoco: "+idUnivoco+"email: "+email+", username: "+username+", password: "+password;
     }
 }

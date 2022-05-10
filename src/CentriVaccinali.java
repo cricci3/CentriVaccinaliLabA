@@ -41,11 +41,6 @@ public class CentriVaccinali {
 
     @Override
     public String toString() {
-        return "Centro Vaccinale " + nome +": " +'\'' +
-                ", tipologia='" + tipologia + '\'' +
-                ", indirizzo='" + indirizzo + '\'' +
-                ", comune='" + comune + '\'' +
-                ", cap=" + cap +
-                ", provincia='" + provincia + '\'';
+        return "Centro Vaccinale "+nome+", tipologia: " + tipologia+", indirizzo: "+indirizzo+", comune: "+comune+", cap: "+cap+", provincia: "+provincia;
     }
 }
