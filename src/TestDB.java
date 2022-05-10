@@ -42,7 +42,8 @@ public class TestDB {
                 +"nomeVaccino VARCHAR(50) NOT NULL )";
         db.submitQuery(query2);
 
-        ResultSet centriVaccinali = db.submitQuery("SELECT * FROM CentriVaccinali");
+
+        ResultSet centriVaccinali = db.submitQuery("SELECT nome FROM CentriVaccinali WHERE nome='emilio'");
         System.out.println(centriVaccinali);
         dt.handleCentriVaccinaliSet(centriVaccinali);
 
