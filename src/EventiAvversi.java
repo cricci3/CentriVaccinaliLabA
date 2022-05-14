@@ -1,4 +1,8 @@
-public class EventiAvversi {
+import java.io.*;
+
+public class EventiAvversi implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private CittadiniRegistrati cittadino;
     private int valoreMalDiTesta;
     private String notaMdT;

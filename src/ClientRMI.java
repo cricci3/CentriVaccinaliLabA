@@ -6,13 +6,13 @@ public class ClientRMI {
         Scanner sc = new Scanner(System.in);
 
         try {
-            Registry registro = LocateRegistry.getRegistry(1099);
-            InterfaceRMI stub = (InterfaceRMI) registro.lookup("CentriVaccinali");
+            /*
             //prova per inserire centri vaccinali nel db
             System.out.println("inserire nome del centro vaccinale");
             String nomeCV = sc.nextLine();
+            nomeCV.replaceAll(" ", "_");
 
-            System.out.println("inserire l'indirizzo in forma via/vial/corso nomeVia, numero");
+            System.out.println("inserire l'indirizzo in forma via/via/corso nomeVia, numero");
             String indirizzo = sc.nextLine();
 
             System.out.println("inserire comune");
@@ -27,8 +27,26 @@ public class ClientRMI {
             System.out.println("inserire cap del comune");
             int cap = sc.nextInt();
 
-            CentriVaccinali centro = new CentriVaccinali(nomeCV, tipologia, indirizzo, comune, cap, provincia);
-            boolean response = stub.addCentroVaccinale(centro);
+            CentriVaccinali centro = new CentriVaccinali(nomeCV, indirizzo, comune, provincia, cap, tipologia);
+
+
+             */
+            Registry registro = LocateRegistry.getRegistry(1099);
+            InterfaceRMI stub = (InterfaceRMI) registro.lookup("CentriVaccinali");
+            //boolean response = stub.addCentroVaccinale(centro);
+
+
+            CentriVaccinali centro = new CentriVaccinali("emilio", "via daverio", "daverio", "va", 21100, "hub");
+            String risposta = stub.getInfoCentro(centro);
+            System.out.println(risposta);
+
+            /*
+            if(response){
+                System.out.println("OK centro aggiunto");
+            }else
+                System.out.println("PROBLEMA");
+
+             */
         } catch (Exception e) {
             e.printStackTrace();
         }

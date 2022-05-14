@@ -76,18 +76,33 @@ public class DataTables {
         return this.cittadiniVaccinatiTable;
     }
 
-/*
+
+    public String handleEventiAvversiSet(ResultSet rs) throws SQLException{
+        String risultato = null;
+        while (rs.next()){
+            risultato.concat(rs.getString("febbre"));
+            risultato.concat(String.valueOf(rs.getInt("media")));
+        }
+        return risultato;
+    }
+
+    /*
     public void handleEventiAvversiSet(ResultSet rs) throws SQLException {
         //rs.first(); //così handle iniziano da prima riga
         while(rs.next()) {
-            EventiAvversi eventi = new EventiAvversi(rs.getString("cittadino"),
-                    rs.getInt("testa"),
-                    rs.getInt("febbre"),
-                    rs.getInt("dolori"),
-                    rs.getInt("linfoadenopatia"),
-                    rs.getInt("tachicardia"),
-                    rs.getInt("crisiI")
-            );
+            EventiAvversi eventi = new EventiAvversi((rs.getString("cittadino"),
+                    rs.getString("testa"),
+                    rs.getString("noteTesta"),
+                    rs.getString("febbre"),
+                    rs.getString("noteFebbre"),
+                    rs.getString("dolori"),
+                    rs.getString("noteDolori"),
+                    rs.getString("linfoadenopatia"),
+                    rs.getString("noteLinfo"),
+                    rs.getString("tachicardia"),
+                    rs.getString("noteTach"),
+                    rs.getString("crisiI"),
+                    rs.getString("noteCrisiI"));
             cittadiniVaccinatiTable.add(eventi);
         }
     }
@@ -95,5 +110,5 @@ public class DataTables {
     public ArrayList<EventiAvversi> getEventiAvversiTables(){
         return this.eventiAvversiTable;
     }
- */
+     */
 }

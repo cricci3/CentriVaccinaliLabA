@@ -5,4 +5,6 @@ public interface InterfaceRMI extends Remote {
     public boolean addCittadinoVaccinato(CittadiniVaccinati cittadino) throws RemoteException;
     public boolean addCittadinoRegistrato(CittadiniRegistrati cittadinoR) throws RemoteException;
     public boolean addEventiAvversi(EventiAvversi eventi) throws RemoteException;
+
+    public String getInfoCentro(CentriVaccinali centro) throws RemoteException;
 }

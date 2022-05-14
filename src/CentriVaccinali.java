@@ -1,4 +1,8 @@
-public class CentriVaccinali {
+import java.io.*;
+
+public class CentriVaccinali implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public String nome;
     public String tipologia;
     public String indirizzo; //nome via, numero civico
@@ -8,11 +12,11 @@ public class CentriVaccinali {
 
     CentriVaccinali(String nome, String indirizzo, String comune, String provincia, int cap, String tipologia){
         this.nome = nome;
-        this.tipologia = tipologia;
         this.indirizzo = indirizzo;
         this.comune = comune;
-        this.cap = cap;
         this.provincia = provincia;
+        this.tipologia = tipologia;
+        this.cap = cap;
     }
 
     public String getNome(){

@@ -23,9 +23,11 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
     @Override
     public boolean addCentroVaccinale(CentriVaccinali cv){
         try{
-        String query = "INSERT INTO centrivaccinali VALUES ('" + cv.getNome() + "','" + cv.getTipologia() + "','"
-                + cv.getIndirizzo() + "','" + cv.getComune() + "','" + cv.getCap() + "','" + cv.getProvincia() + "')";
+        String query = "INSERT INTO centrivaccinali VALUES ('" + cv.getNome() + "','" + cv.getIndirizzo() + "','"
+                + cv.getComune() + "','" + cv.getProvincia() + "','" + cv.getTipologia() + "','" + cv.getCap() + "')";
         db.submitQuery(query);
+
+
         query = "CREATE TABLE Vaccinati_"+cv.getNome()+" ("
                 +"idcittadino NUMERIC(8) PRIMARY KEY,"
                 +"nome VARCHAR(50) NOT NULL,"
@@ -81,10 +83,28 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
         return true;
     }
 
+    @Override
+    public String getInfoCentro(CentriVaccinali centro){
+        String query = "SELECT febbre, avg(febbre) AS media FROM eventiavversi"+
+                "WHERE nomeCV = "+centro.getNome()+
+                "GROUP BY febbre";
+
+        String informazione = null;
+        try {
+           ResultSet rs = db.submitQuery(query);
+            DataTables dt = new DataTables();
+            String media = dt.handleEventiAvversiSet(rs);
+            informazione = centro.toString()+media;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return informazione;
+    }
+
     public static void main(String[] args) {
         try {
             ServerRMI obj = new ServerRMI();
-            Registry registro = LocateRegistry.getRegistry();
+            Registry registro = LocateRegistry.createRegistry(1099);
             registro.rebind("CentriVaccinali",obj);
             System.out.println("Server ready");
         }catch (Exception e){
