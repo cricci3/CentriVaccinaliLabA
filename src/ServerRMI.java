@@ -26,19 +26,18 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
     @Override
     public boolean addCentroVaccinale(CentroVaccinale cv){
         try{
-        String query = "INSERT INTO centrivaccinali VALUES ('" + cv.getNome() + "','" + cv.getIndirizzo() + "','"
-                + cv.getComune() + "','" + cv.getProvincia() + "','" + cv.getTipologia() + "','" + cv.getCap() + "')";
-        db.submitQuery(query);
+            String query = "INSERT INTO centrivaccinali VALUES ('" + cv.getNome() + "','" + cv.getIndirizzo() + "','"
+                    + cv.getComune() + "','" + cv.getProvincia() + "','" + cv.getTipologia() + "','" + cv.getCap() + "')";
+            db.submitQuery(query);
 
-
-        query = "CREATE TABLE Vaccinati_"+cv.getNome()+" ("
-                +"idcittadino NUMERIC(8) PRIMARY KEY,"
-                +"nome VARCHAR(50) NOT NULL,"
-                +"cognome VARCHAR(50) NOT NULL,"
-                +"cf VARCHAR(16) NOT NULL,"
-                +"dataVaccinazione DATE NOT NULL,"
-                +"nomeVaccino VARCHAR(50) NOT NULL )";
-        db.submitQuery(query);
+            query = "CREATE TABLE Vaccinati_"+cv.getNome()+" ("
+                    +"idcittadino NUMERIC(8) PRIMARY KEY,"
+                    +"nome VARCHAR(50) NOT NULL,"
+                    +"cognome VARCHAR(50) NOT NULL,"
+                    +"cf VARCHAR(16) NOT NULL,"
+                    +"dataVaccinazione DATE NOT NULL,"
+                    +"nomeVaccino VARCHAR(50) NOT NULL )";
+            db.submitQuery(query);
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -80,15 +79,13 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
     //da aggiungere a listenerButton invio dati eventi avversi
     @Override
     public boolean addEventiAvversi(EventiAvversi eventi) {
-        CittadinoRegistrato cittadino = eventi.getCittadino();
-        String query = "INSERT INTO eventiavversi VALUES ('" +cittadino.getIdUnivoco() + "','"
-                + cittadino.getNomeCV() + "','" + eventi.getValoreFebbre() + "','" + eventi.getNotaFebbre() + "','" + eventi.getValoreMalDiTesta() + "',"+eventi.getNotaMdT()
+        //CittadinoRegistrato cittadino = eventi.getCittadino();
+        String query = "INSERT INTO eventiavversi VALUES ('" +eventi.getId() + "','"
+                + eventi.getCentroVaccinale() + "','" + eventi.getValoreFebbre() + "','" + eventi.getNotaFebbre() + "','" + eventi.getValoreMalDiTesta() + "',"+eventi.getNotaMdT()
                 + eventi.getValoreDolori() + "','" + eventi.getNotaDolori() + "','" + eventi.getValoreLinfoadenopatia() + "','" + eventi.getNotaLinfoadenopatia() + "',"+eventi.getValoreTachicardia()
                 + eventi.getNotaTachicardia() + "','" + eventi.getValoreCrisiI() + "','" + eventi.getNotaCrisiI() +")";
         try {
-            ResultSet rs = db.submitQuery(query);
-
-            //manca mostrare eventi avversi
+            db.submitQuery(query);
         }catch (SQLException e){
             e.printStackTrace();
         }

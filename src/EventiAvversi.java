@@ -3,7 +3,8 @@ import java.io.*;
 public class EventiAvversi implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private CittadinoRegistrato cittadino;
+    private int id;
+    private String centroVaccinale;
     private int valoreMalDiTesta;
     private String notaMdT;
     private int valoreFebbre;
@@ -17,8 +18,9 @@ public class EventiAvversi implements Serializable {
     private int valoreCrisiI;
     private String notaCrisiI;
 
-    EventiAvversi(CittadinoRegistrato cittadino, int testa, String notaMdT, int febbre, String notaFebbre, int dolori, String notaDolori, int linfoadenopatia, String notaLinfo, int tachicardia, String notaTach, int crisi, String notaCrisi){
-        this.cittadino=cittadino;
+    EventiAvversi(int id, String centro, int testa, String notaMdT, int febbre, String notaFebbre, int dolori, String notaDolori, int linfoadenopatia, String notaLinfo, int tachicardia, String notaTach, int crisi, String notaCrisi){
+        this.id = id;
+        this.centroVaccinale = centro;
         this.valoreMalDiTesta=testa;
         this.notaMdT=notaMdT;
         this.valoreFebbre=febbre;
@@ -33,8 +35,12 @@ public class EventiAvversi implements Serializable {
         this.notaCrisiI=notaCrisi;
     }
 
-    public CittadinoRegistrato getCittadino() {
-        return cittadino;
+    public int getId() {
+        return id;
+    }
+
+    public String getCentroVaccinale() {
+        return centroVaccinale;
     }
 
     public int getValoreMalDiTesta() {
