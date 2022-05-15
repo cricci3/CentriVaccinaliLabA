@@ -1,25 +1,24 @@
 import java.io.*;
-import java.util.*;
 
-public class CittadiniVaccinati implements Serializable {
+public class CittadinoVaccinato implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public String nome;
     public String cognome;
     public String nomeCV;
     public String cf;
-    public Date dataVaccinazione;
+    public String dataVaccinazione;
     public String nomeVaccino;
     public int idUnivoco;
 
-    CittadiniVaccinati(String nome, String cognome, String nomeCV, String cf, Date data, String nomeV, int id){
+    CittadinoVaccinato(String nomeCV, int id, String nome, String cognome, String cf, String data, String nomeV){
+        this.nomeCV=nomeCV;
+        this.idUnivoco=id;
         this.nome=nome;
         this.cognome=cognome;
-        this.nomeCV=nomeCV;
         this.cf=cf;
         this.dataVaccinazione=data;
         this.nomeVaccino=nomeV;
-        this.idUnivoco=id;
     }
 
     public String getNome() {
@@ -38,7 +37,7 @@ public class CittadiniVaccinati implements Serializable {
         return this.cf;
     }
 
-    public Date getDataVaccinazione() {
+    public String getDataVaccinazione() {
         return this.dataVaccinazione;
     }
 

@@ -1,10 +1,17 @@
 import java.rmi.*;
+import java.util.*;
 
 public interface InterfaceRMI extends Remote {
-    public boolean addCentroVaccinale(CentriVaccinali centro) throws RemoteException;
-    public boolean addCittadinoVaccinato(CittadiniVaccinati cittadino) throws RemoteException;
-    public boolean addCittadinoRegistrato(CittadiniRegistrati cittadinoR) throws RemoteException;
+    //metodi di modifica del db
+    //restituiscono solamente true/false se operazione riuscita/fallita
+    public boolean addCentroVaccinale(CentroVaccinale centro) throws RemoteException;//funzionante
+    public boolean addCittadinoVaccinato(CittadinoVaccinato cittadino) throws RemoteException;//funzionante
+    public boolean addCittadinoRegistrato(CittadinoRegistrato cittadinoR) throws RemoteException; //funzionante (ma migliorabile)
     public boolean addEventiAvversi(EventiAvversi eventi) throws RemoteException;
 
-    public String getInfoCentro(CentriVaccinali centro) throws RemoteException;
+    //metodi lettura db
+    //restiuiscono dei valori che cittadino deve leggere
+    public String visualizzaInfoCentroVaccinale(CentroVaccinale centro) throws RemoteException; //non funziona
+    public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCV) throws RemoteException; //non funziona
+    public String cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
 }

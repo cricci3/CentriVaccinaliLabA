@@ -1,15 +1,14 @@
 import java.io.*;
-import java.util.*;
 
-public class CittadiniRegistrati extends CittadiniVaccinati implements Serializable {
+public class CittadinoRegistrato extends CittadinoVaccinato implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public String email;
     public String username;
     public String password;
 
-    CittadiniRegistrati(String nome, String cognome, String nomeCV, String cf, Date data, String nomeV, int id, String email, String username, String password) {
-        super(nome, cognome, nomeCV, cf, data, nomeV, id);
+    CittadinoRegistrato(String nomeCV, int id, String nome, String cognome, String cf, String data, String nomeV,  String email, String username, String password) {
+        super(nomeCV, id, nome, cognome,cf, data, nomeV);
         this.email = email;
         this.username= username;
         this.password = password;

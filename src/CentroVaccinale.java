@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class CentriVaccinali implements Serializable {
+public class CentroVaccinale implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public String nome;
@@ -10,7 +10,7 @@ public class CentriVaccinali implements Serializable {
     public int cap;
     public String provincia;
 
-    CentriVaccinali(String nome, String indirizzo, String comune, String provincia, int cap, String tipologia){
+    CentroVaccinale(String nome, String indirizzo, String comune, String provincia, int cap, String tipologia){
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.comune = comune;
@@ -45,6 +45,11 @@ public class CentriVaccinali implements Serializable {
 
     @Override
     public String toString() {
-        return "Centro Vaccinale "+nome+", tipologia: " + tipologia+", indirizzo: "+indirizzo+", comune: "+comune+", cap: "+cap+", provincia: "+provincia;
+        return "Centro Vaccinale "+nome+
+                ", tipologia: " + tipologia+
+                ", indirizzo: "+indirizzo+
+                ", comune: "+comune+
+                ", cap: "+cap+
+                ", provincia: "+provincia;
     }
 }

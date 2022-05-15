@@ -2,6 +2,7 @@ import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.*;
 import java.sql.*;
+import java.util.*;
 
 public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
     private static final long serialVersionUID = 1L;
@@ -20,8 +21,10 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
         super();
     }
 
+    //funzione chiamata quando operatore inserisce un nuovo centro vaccinale
+    //da aggiungere a listenerButton invio dati
     @Override
-    public boolean addCentroVaccinale(CentriVaccinali cv){
+    public boolean addCentroVaccinale(CentroVaccinale cv){
         try{
         String query = "INSERT INTO centrivaccinali VALUES ('" + cv.getNome() + "','" + cv.getIndirizzo() + "','"
                 + cv.getComune() + "','" + cv.getProvincia() + "','" + cv.getTipologia() + "','" + cv.getCap() + "')";
@@ -43,8 +46,10 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
         return true;
     }
 
+    //funzione chiamata quando operatore inserisce un nuovo vaccinato in un centro vaccinale
+    //da aggiungere a listenerButton invio dati
     @Override
-    public boolean addCittadinoVaccinato(CittadiniVaccinati cittV) {
+    public boolean addCittadinoVaccinato(CittadinoVaccinato cittV) {
         String query = "INSERT INTO vaccinati_"+cittV.getNomeCV()+" VALUES ('" + cittV.getIdUnivoco() + "','" + cittV.getNome() + "','"
                 + cittV.getCognome() + "','" + cittV.getCf() + "','" + cittV.getDataVaccinazione() + "','" + cittV.getNomeVaccino() + "')";
         try {
@@ -56,42 +61,50 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
         return true;
     }
 
+    //funzione chiamata quando cittadino, in seguito a vaccinazione effettua registrazione al sistema
+    //da aggiungere a listenerButton invio dati
     @Override
-    public boolean addCittadinoRegistrato(CittadiniRegistrati cittR) {
+    public boolean addCittadinoRegistrato(CittadinoRegistrato cittR) {
         String query = "INSERT INTO cittadini_registrati VALUES ('" + cittR.getIdUnivoco() + "','" + cittR.getNome() + "','"
                 + cittR.getCognome() + "','" + cittR.getCf() + "','" + cittR.getEmail() + "','" + cittR.getUsername() + "',"+cittR.getPassword()+")";
         try {
             db.submitQuery(query);
         }catch (SQLException e){
             e.printStackTrace();
+            return false;
         }
         return true;
     }
 
+    //funzione chiamata quando un cittadino inserisce i suoi eventi avversi
+    //da aggiungere a listenerButton invio dati eventi avversi
     @Override
     public boolean addEventiAvversi(EventiAvversi eventi) {
-        CittadiniRegistrati cittadino = eventi.getCittadino();
+        CittadinoRegistrato cittadino = eventi.getCittadino();
         String query = "INSERT INTO eventiavversi VALUES ('" +cittadino.getIdUnivoco() + "','"
                 + cittadino.getNomeCV() + "','" + eventi.getValoreFebbre() + "','" + eventi.getNotaFebbre() + "','" + eventi.getValoreMalDiTesta() + "',"+eventi.getNotaMdT()
                 + eventi.getValoreDolori() + "','" + eventi.getNotaDolori() + "','" + eventi.getValoreLinfoadenopatia() + "','" + eventi.getNotaLinfoadenopatia() + "',"+eventi.getValoreTachicardia()
                 + eventi.getNotaTachicardia() + "','" + eventi.getValoreCrisiI() + "','" + eventi.getNotaCrisiI() +")";
         try {
-            db.submitQuery(query);
+            ResultSet rs = db.submitQuery(query);
+
+            //manca mostrare eventi avversi
         }catch (SQLException e){
             e.printStackTrace();
         }
         return true;
     }
 
+    //funzione chiamata quando un cittadino vuole cercare informazioni riguardo a un centro vaccinale
     @Override
-    public String getInfoCentro(CentriVaccinali centro){
+    public String visualizzaInfoCentroVaccinale(CentroVaccinale centro){
         String query = "SELECT febbre, avg(febbre) AS media FROM eventiavversi"+
                 "WHERE nomeCV = "+centro.getNome()+
                 "GROUP BY febbre";
 
         String informazione = null;
         try {
-           ResultSet rs = db.submitQuery(query);
+            ResultSet rs = db.submitQuery(query);
             DataTables dt = new DataTables();
             String media = dt.handleEventiAvversiSet(rs);
             informazione = centro.toString()+media;
@@ -99,6 +112,29 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
             e.printStackTrace();
         }
         return informazione;
+    }
+
+    @Override
+    public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCV) throws RemoteException {
+        String query = "SELECT nome FROM centrivaccinali WHERE nome LIKE '%"+nomeCV+"%'";
+        try {
+            ResultSet rs = db.submitQuery(query);
+            DataTables dt = new DataTables();
+            dt.handleCentriVaccinaliSet(rs);
+            if(dt.getCentriVaccinaliTable() == null) {
+                System.out.println("ERROREEEEEEE");
+                return null;
+            }else
+                return dt.getCentriVaccinaliTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String cercaCentroVaccinale(String comune, String tipologia) throws RemoteException {
+        return null;
     }
 
     public static void main(String[] args) {
