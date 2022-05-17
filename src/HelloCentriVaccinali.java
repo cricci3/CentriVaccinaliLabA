@@ -9,11 +9,12 @@ public class HelloCentriVaccinali {
     private JLabel label;
 
     public HelloCentriVaccinali() {
-
         btn_cittadino.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Hello World!");
+                Cittadino cittadino = new Cittadino();
+                Panel1.setVisible(false);
+                cittadino.panel2.setVisible(true);
             }
         });
         btn_operatore.addActionListener(new ActionListener() {
@@ -25,10 +26,11 @@ public class HelloCentriVaccinali {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("HelloCentriVaccinali");
+        JFrame frame = new JFrame("CentriVaccinali");;
         frame.setContentPane(new HelloCentriVaccinali().Panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setSize(450,450);
         frame.setVisible(true);
     }
 }
