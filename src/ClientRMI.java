@@ -1,10 +1,9 @@
-import java.rmi.registry.*;
 import java.util.*;
 
 public class ClientRMI {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+/*
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
             InterfaceRMI stub = (InterfaceRMI) registro.lookup("CentriVaccinali");
@@ -190,6 +189,8 @@ public class ClientRMI {
         }
 
 
+
+ */
         //FINE MAIN
         }
 
