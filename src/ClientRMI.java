@@ -9,7 +9,7 @@ public class ClientRMI {
             Registry registro = LocateRegistry.getRegistry(1099);
             InterfaceRMI stub = (InterfaceRMI) registro.lookup("CentriVaccinali");
 
-/*
+
             //prova per inserire centri vaccinali nel db
             System.out.println("inserire nome del centro vaccinale");
             String nomeCV = sc.nextLine();
@@ -62,7 +62,10 @@ public class ClientRMI {
             String nomeVaccino = sc.nextLine();
 
             System.out.println("inserire id cittadino"); //da implementare generazione casuale id a 8 cifre
-            int id = sc.nextInt();
+            int id=0;
+            do {
+                id= IdGenerator.generateUniqueId();
+            }while(id>99999999);
 
             CittadinoVaccinato cittadinoVaccinato = new CittadinoVaccinato(nomeCentro, id,nome,cognome,cf,data,nomeVaccino);
             boolean resp = stub.addCittadinoVaccinato(cittadinoVaccinato);
@@ -113,14 +116,11 @@ public class ClientRMI {
             }else
                 System.out.println("PROBLEMA, cittadino già registrato");
             //------------------------------------------------------------------------------------------------------------------------------
-            */
+
 
             //prova per inserire eventi avversi
             System.out.println("Inserire il proprio id");
             int id = sc.nextInt();
-
-            System.out.println("inserire note testa [opzionale]");
-            String noteMdT = sc.nextLine();
 
             System.out.println("inserire centro vaccinale");
             String nomeCentroV = sc.nextLine();
@@ -132,7 +132,8 @@ public class ClientRMI {
 
             System.out.println("inserire valore testa");
             int testa = sc.nextInt();
-
+            System.out.println("inserire note testa [opzionale]");
+            String noteMdT = sc.nextLine();
 
             System.out.println("inserire valore dolori musc");
             int doloriM = sc.nextInt();
@@ -154,7 +155,6 @@ public class ClientRMI {
             System.out.println("inserire note crisi [opzionale]");
             String noteC = sc.nextLine();
 
-
             EventiAvversi eventi = new EventiAvversi(id, nomeCentroV, febbre, noteF, testa, noteMdT, doloriM, noteD, linfo, noteL, tachi, noteT, crisiI, noteC);
             boolean response = stub.addEventiAvversi(eventi);
 
@@ -164,7 +164,6 @@ public class ClientRMI {
                 System.out.println("errore in inserimento eventi");
             }
 
-            /*
             //prova per cercare informazioni riguardo al centro + prospetto riassuntivo eventi avversi, NON FUNZIONA
             CentroVaccinale centroCercato = new CentroVaccinale("emilio", "via daverio", "daverio", "va", 21100, "hub");
             String risposta = stub.visualizzaInfoCentroVaccinale(centroCercato);
@@ -175,16 +174,17 @@ public class ClientRMI {
 
             //prova per cercare tutti i centri contenenti nel nome la parola emilio
             System.out.println("cerco centri vaccinali contenenti nel nome la parola emilio");
-            ArrayList<CentroVaccinale> arrayList = stub.cercaCentroVaccinale("emilio");
-
-            //DataTables dt = new DataTables();
-            //dt.handleCentriVaccinaliSet(rs);
-            //return dt.getCentriVaccinaliTable();
-            for(CentroVaccinale cv : arrayList)
-                System.out.println(cv);
+            //stub.cercaCentroVaccinale("emilio");
+            ArrayList<CentroVaccinale> listaRisultante = stub.cercaCentroVaccinale("emilio");
+            System.out.println("post query");
+            if(listaRisultante.isEmpty()){
+                System.out.println("ERRORE");
+            }else {
+                for(CentroVaccinale cv : listaRisultante){
+                    System.out.println(cv.toString());
+                }
+            }
             //---------------------------------------------------------------------------------------------------------
-
-             */
         } catch (Exception e) {
             e.printStackTrace();
         }

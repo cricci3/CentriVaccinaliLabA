@@ -16,18 +16,18 @@ public class DataTables {
         this.eventiAvversiTable = new ArrayList<EventiAvversi>();
     }
 
-    public void handleCentriVaccinaliSet(ResultSet rs) throws SQLException {
-        //rs.first(); //così handle iniziano da prima riga
+    public ArrayList<CentroVaccinale> handleCentriVaccinaliSet(ResultSet rs) throws SQLException {
+        rs.first(); //così handle iniziano da prima riga
         while(rs.next()) {
             CentroVaccinale cv = new CentroVaccinale(rs.getString("nome"),
                     rs.getString("indirizzo"),
                     rs.getString("comune"),
                     rs.getString("provincia"),
                     rs.getInt("cap"),
-                    rs.getString("tipologia")
-            );
+                    rs.getString("tipologia"));
             centriVaccinaliTable.add(cv);
         }
+        return centriVaccinaliTable;
     }
 
     public ArrayList<CentroVaccinale> getCentriVaccinaliTable(){
@@ -35,7 +35,7 @@ public class DataTables {
     }
 
     public void handleCittadiniRegistratiSet(ResultSet rs) throws SQLException {
-        //rs.first(); //così handle iniziano da prima riga
+        rs.first(); //così handle iniziano da prima riga
         while(rs.next()) {
             CittadinoRegistrato cittr = new CittadinoRegistrato(
                     rs.getString("nomeCV"),
@@ -59,7 +59,7 @@ public class DataTables {
 
 
     public void handleCittadiniVaccinatiSet(ResultSet rs) throws SQLException {
-        //rs.first(); //così handle iniziano da prima riga
+        rs.first(); //così handle iniziano da prima riga
         while(rs.next()) {
             CittadinoVaccinato cittv = new CittadinoVaccinato(
                     rs.getString("nomeCV"),

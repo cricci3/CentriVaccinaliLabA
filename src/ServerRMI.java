@@ -113,20 +113,25 @@ public class ServerRMI extends UnicastRemoteObject implements InterfaceRMI {
 
     @Override
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCV) throws RemoteException {
-        String query = "SELECT nome FROM centrivaccinali WHERE nome LIKE '%"+nomeCV+"%'";
+        DataTables dt = new DataTables();
+        ArrayList<CentroVaccinale> listaCentri = new ArrayList<>();
+        String query = "SELECT * FROM centrivaccinali WHERE nome LIKE '%"+nomeCV+"%'";
         try {
             ResultSet rs = db.submitQuery(query);
-            DataTables dt = new DataTables();
-            dt.handleCentriVaccinaliSet(rs);
-            if(dt.getCentriVaccinaliTable() == null) {
-                System.out.println("ERROREEEEEEE");
-                return null;
-            }else
-                return dt.getCentriVaccinaliTable();
+            /*
+            while (rs.next()){
+                System.out.print(rs.getString("nome"));
+                System.out.println(rs.getString("comune"));
+            }
+             */
+            listaCentri = dt.handleCentriVaccinaliSet(rs);
+            System.out.println("dentro try arrivo");
+            //listaCentri = dt.getCentriVaccinaliTable();
+            //System.out.println(listaCentri.toString());
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return listaCentri;
     }
 
     @Override

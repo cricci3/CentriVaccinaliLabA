@@ -7,10 +7,10 @@ public interface InterfaceRMI extends Remote {
     public boolean addCentroVaccinale(CentroVaccinale centro) throws RemoteException;//funzionante
     public boolean addCittadinoVaccinato(CittadinoVaccinato cittadino) throws RemoteException;//funzionante
     public boolean addCittadinoRegistrato(CittadinoRegistrato cittadinoR) throws RemoteException; //funzionante (ma migliorabile)
-    public boolean addEventiAvversi(EventiAvversi eventi) throws RemoteException;
+    public boolean addEventiAvversi(EventiAvversi eventi) throws RemoteException; //funziona male
 
     //metodi lettura db
-    //restiuiscono dei valori che cittadino deve leggere
+    //restiuiscono dei valori che cittadino deve leggere, server rimanda robe al client
     public String visualizzaInfoCentroVaccinale(CentroVaccinale centro) throws RemoteException; //non funziona
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCV) throws RemoteException; //non funziona
     public String cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
